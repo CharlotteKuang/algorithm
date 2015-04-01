@@ -1,0 +1,2 @@
+Use hashmap to store the numbers.
+For each number, find (target - number) from the hashmap (O(1))
