@@ -50,3 +50,31 @@ class Solution:
 			if flag == 1:
 				p3.next = ListNode(1)
 		return result	
+	def addTwoNumbers2(self, l1, l2):
+		if l1 is None:
+			return l2
+		if l2 is None:
+			return l1
+		result = ListNode((l1.val + l2.val) % 10) 
+		if l1.val + l2.val >= 10: flag = 1 
+		else: flag = 0
+		p1 = l1.next
+		p2 = l2.next
+		p3 = result
+		while p1 is not None or p2 is not None:
+			if p1 is None: v1 = 0
+			else:
+				v1 = p1.val
+				p1 = p1.next
+			if p2 is None: v2 = 0
+			else:
+				v2 = p2.val
+				p2 = p2.next
+			tmp = v1 + v2 + flag
+			if tmp >= 10:
+				flag = 1 
+			else: flag = 0
+			p3.next = ListNode(tmp % 10)
+			p3 = p3.next	
+		if flag: p3.next = ListNode(1)
+		return result

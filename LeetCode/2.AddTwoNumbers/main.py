@@ -28,7 +28,7 @@ def main():
 		ln1 = setListNode(tc[0]) 
 		ln2 = setListNode(tc[1])
 		print 'testCase result:'
-		ln3 = test.addTwoNumbers(ln1, ln2)
+		ln3 = test.addTwoNumbers2(ln1, ln2)
 		if ln3:
 			ln3.getListNode()
 		else:
