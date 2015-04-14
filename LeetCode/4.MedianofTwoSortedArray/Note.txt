@@ -1,0 +1,48 @@
+Finding the median of a sorted array is as easy as to picking the middle element of
+the array. If we merge the two sorted arrays into one, then picking the middle element
+of the newly-formed array would solve this problem. But this solution actually cost O(m+n)
+time complexity, here m and n are the length of the two arrays.
+
+If we define the middle element of the merged array is in kth place, then kth element 
+is the only one thing that we want so we don't have to merge the array. Then we will 
+have to implement an algorithm to find the kth element of the 'merged-array'.
+
+Let's take an example to the find the last element of the following two arrays:
+[1,2,3], [10,11,12]
+We may first look at the two arrays and find out that the elements of the second array are 
+much larger than the elements of the first array. Then 12 is what we want. By looking at 
+the example, we know that the sorted arrays can give us some clues on how the 'merge-array'
+distributes. Then we can use binary search according to these clues.
+
+	def findKthNumber(self, A, B, headA, tailA, headB, tailB, kth):
+		#pdb.set_trace()
+		if headA > tailA:
+			return B[headB+kth]
+		if headB > tailB:
+			return A[headA+kth]
+
+		# we now firstly combine the first half of A and the first half of B into one
+		# array although we don't know the exact order of the elements.
+		midA = (headA+tailA)/2
+		midB = (headB+tailB)/2
+		midLength = midA-headA+midB-headB+2
+		
+		#if A[midA] is smaller than B[midB]:
+		if A[midA] < B[midB]:
+			#if kth element is in the first halfs of A and B
+			if midLength-1 > kth:
+				# then discard the second half of B because the A and first half of
+				# B must contain the kth element.
+				# replacing B with B[headB:midB-1] is safe for B[midB-1] must not be 
+				# in the target range.
+				return self.findKthNumber(A, B, headA, tailA, headB, midB-1, kth)
+			else:
+				# otherwise discard the first half of A
+				# Discaring A[midA] is also safe for this condition for A[midA] is 
+				# not big enough to be the kth element.
+				return self.findKthNumber(A, B, midA+1, tailA, headB, tailB, kth-(midA-headA+1))
+		else:
+			if midLength-1 > kth:
+				return self.findKthNumber(A, B, headA, midA-1, headB, tailB, kth)
+			else:
+				return self.findKthNumber(A, B, headA, tailA, midB+1, tailB, kth-(midB-headB+1))
