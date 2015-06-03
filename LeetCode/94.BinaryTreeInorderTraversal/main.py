@@ -7,6 +7,7 @@ def main():
 	test.left = TreeNode(1)
 	test.left.left = TreeNode(2)
 	test.left.left.left = TreeNode(3)
+	print solution.preorderTraversalFunc(test)
 	print solution.inorderTraversal(test)
 	print solution.postorderTraversal(test)
 
@@ -30,6 +31,8 @@ def main():
 	test.left = TreeNode(1)
 	test.right = TreeNode(2)
 	test.right.left = TreeNode(3)
+	print solution.inorderTraversalFunc(test)
+	print solution.preorderTraversalFunc(test)
 	print solution.inorderTraversal(test) 
 	print solution.postorderTraversal(test)
 
