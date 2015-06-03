@@ -1,3 +1,5 @@
+import pdb
+
 # Definition for a binary tree node.
 class TreeNode:
 	def __init__(self, x):
@@ -6,20 +8,62 @@ class TreeNode:
 		self.right = None
 
 class Solution:
+	def postorderTraversalGenerator(self, node):
+		if node.left: 
+			for i in self.postorderTraversalGenerator(node.left):
+				yield i
+		if node.right: 
+			for i in self.postorderTraversalGenerator(node.right):
+				yield i
+		if node: yield node.val
+
     # @param {TreeNode} root
     # @return {integer[]}
-    def preorderTraversal(self, root):
-        result = []
-        if root:
-            s = [root]
-            while len(s):
-                top = s.pop(-1)
-                result.append(top.val)
-                if top.right:
-                    s.append(top.right)
-                if top.left:
-                    s.append(top.left)
-        return result
+	def postorderTraversalFunc(self, root):
+		return list(self.postorderTraversalGenerator(root))
+
+	def inorderTraversalGenerator(self, node):
+		if node.left: 
+			for i in self.inorderTraversalGenerator(node.left):
+				yield i
+		if node: yield node.val
+		if node.right: 
+			for i in self.inorderTraversalGenerator(node.right):
+				yield i
+
+    # @param {TreeNode} root
+    # @return {integer[]}
+	def inorderTraversalFunc(self, root):
+		return list(self.inorderTraversalGenerator(root))
+
+	def preorderTraversalGenerator(self, node):
+		if node: yield node.val
+		if node.left: 
+			for i in self.preorderTraversalGenerator(node.left):
+				yield i
+		if node.right: 
+			for i in self.preorderTraversalGenerator(node.right):
+				yield i
+
+    # @param {TreeNode} root
+    # @return {integer[]}
+	def preorderTraversalFunc(self, root):
+		return list(self.preorderTraversalGenerator(root))
+
+    # @param {TreeNode} root
+    # @return {integer[]}
+	def preorderTraversal(self, root):
+		result = []
+		if root:
+			s = [root]
+			while len(s):
+				top = s.pop(-1)
+				result.append(top.val)
+				if top.right:
+					s.append(top.right)
+				if top.left:
+					s.append(top.left)
+		return result
 	# @param {TreeNode} root
 	# @return {integer[]}
 	def inorderTraversal(self, root):
