@@ -7,6 +7,7 @@ class TreeNode:
 		self.right = None
 
 class Solution:
+	'''
 	def flip(self, num, times):
 		result = 0
 		for i in range(times):
@@ -47,3 +48,21 @@ class Solution:
 			if cur is None: tail = mid
 			else: head = mid
 		return (1 << height-1) + head 
+	'''
+
+	def height(self, node):
+		cur = node
+		result = 0
+		while cur:
+			result += 1
+			cur = cur.left
+		return result
+
+	# @param {TreeNode} root
+	# @return {integer}
+	def countNodes(self, root):
+		hroot = self.height(root)
+		if hroot == 0: return 0
+		hright = self.height(root.right)
+		if hright == hroot - 1: return (1 << hroot - 1) + self.countNodes(root.right)
+		else: return (1 << hright) + self.countNodes(root.left)
