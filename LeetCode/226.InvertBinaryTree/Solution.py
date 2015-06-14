@@ -13,6 +13,14 @@ class Solution:
 			tmp = root.right
 			root.right = root.left
 			root.left = tmp
-			self.invertTree(root.left)
+			self.invertTree(root.left) #what about the returning result? useless!
 			self.invertTree(root.right)
+		return root
+
+	# @param {TreeNode} root
+	# @return {TreeNode}
+	def invertTree2(self, root):
+		if root:
+			#make use of the returning result! fabulous
+			root.left, root.right = self.invertTree2(root.right), self.invertTree2(root.left)
 		return root
