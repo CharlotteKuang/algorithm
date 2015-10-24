@@ -11,24 +11,22 @@ class Solution(object):
 		if start > end: return [[""]]
 		if start == end:
 			return [[s[start:start+1]]]
-		rst = []
 		if not start in self.record:
 			self.record[start] = {} 
 		if not end in self.record[start]:
 			self.record[start][end] = []
 		for i in range(start, end+1):
 			if self.isPalindrome(s, start, i):
-				if i+1 in self.record and end in self.record[i+1]:
-					partRst = self.record[i+1][end]
-				else:
+				if not i+1 in self.record or end in self.record[i+1]:
 					partRst = self.helper(s, i+1, end)
+				else:
+					partRst = self.record[i+1][end]
 				first = s[start:i+1]
 				for par in partRst:
 					if par[-1] == "": par.pop()
 					newList = [first] + copy.copy(par)
 					self.record[start][end].append(newList)
-					rst.append(newList)
-		return rst
+		return self.record[start][end]
 	def partition(self, s):
 		"""
 		:type s: str
