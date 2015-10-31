@@ -8,18 +8,18 @@ class Solution(object):
 		l = len(s)
 		if l <= 1: return 0
 
-		isPalindrome = [[False for i in range(l)] for i in range(l)] 
 		minCuts = []
 
 		for i in range(l+1):
 			minCuts.append(i-1)
 
 		for i in range(1, l):
-			for j in range(i, -1, -1):
-				if s[i] == s[j] and (i-j <= 2 or isPalindrome[j+1][i-1]):
-					isPalindrome[j][i] = True
-					minCuts[i+1] = min(minCuts[i+1], minCuts[j]+1)
-
+			for j in range(0, l-i):
+				if i+j >= l or i-j < 0 or s[i-j] != s[i+j]: break
+				minCuts[i+j+1] = min(minCuts[i+j+1], minCuts[i-j]+1)
+			for j in range(0, l-i):
+				if i+j >= l and i-j-1 < 0 or s[i-j-1] != s[i+j]: break
+				minCuts[i+j+1] = min(minCuts[i+j+1], minCuts[i-j-1]+1)
 		return minCuts[l]
 
 if __name__ == '__main__':
