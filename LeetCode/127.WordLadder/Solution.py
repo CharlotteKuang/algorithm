@@ -10,30 +10,26 @@ class Solution(object):
 
 		l = len(beginWord)
 		wordDict = {}
-		charsDict = []
 		for word in wordList: 
 			wordDict[word] = True
-		for i in range(l):
-			tmp = {}
-			for word in wordList:
-				tmp[word[i]] = True
-			tmp[endWord[i]] = True
-			charsDict.append(tmp)
 		
-		queue = [{'word': beginWord, 'level': 1}]
-		visited = {}
+		queue = [beginWord, endWord]
+		visited = {beginWord:1, endWord:-1}
+		alphabet = [chr(n+ord('a')) for n in range(26)]
+
 		while queue:
 			cur = queue.pop(0)
+			h = visited[cur]
 			for i in range(l):
-				for j in charsDict[i]:
-					nextWord = cur['word'][0:i] + j + cur['word'][i+1:]
-					if nextWord == cur['word']: continue
-					if nextWord == endWord:
-						return cur['level'] + 1
+				for j in alphabet:
+					nextWord = cur[0:i] + j + cur[i+1:]
 					if not nextWord in wordDict: continue
 					if not nextWord in visited:
-						queue.append({'word': nextWord, 'level': cur['level']+1})
-						visited[nextWord] = True 
+						queue.append(nextWord)
+						visited[nextWord] = h + 1 if h > 0 else h - 1
+					elif (visited[nextWord] > 0) ^ (h > 0):
+						pdb.set_trace()
+						return abs(h - visited[nextWord])
 		return 0
 
 if __name__ == '__main__':
