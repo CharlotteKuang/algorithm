@@ -28,7 +28,6 @@ class Solution(object):
 						queue.append(nextWord)
 						visited[nextWord] = h + 1 if h > 0 else h - 1
 					elif (visited[nextWord] > 0) ^ (h > 0):
-						pdb.set_trace()
 						return abs(h - visited[nextWord])
 		return 0
 
