@@ -1,6 +1,7 @@
 import pdb
 class Solution(object):
 	def minCut(self, s):
+		#reference: https://leetcode.com/discuss/47140/two-versions-given-one-28ms-one-manancher-like-algorithm-10
 		"""
 		:type s: str
 		:rtype: int
