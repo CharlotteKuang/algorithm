@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class BinarySearch {
 	public static int rank(int key, int[] a) {
-		int lo = 0;
+		int lo = 0; // Initializing and Assignment (short cuts notation)
 		int hi = a.length - 1;
 
 		while(lo <= hi) {
